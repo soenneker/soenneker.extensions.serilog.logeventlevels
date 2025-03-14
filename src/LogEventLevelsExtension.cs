@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Serilog.Events;
+using Soenneker.Extensions.String;
 
 namespace Soenneker.Extensions.Serilog.LogEventLevels;
 
@@ -27,6 +28,25 @@ public static class LogEventLevelsExtension
             LogEventLevel.Error => LogLevel.Error,
             LogEventLevel.Fatal => LogLevel.Critical,
             _ => LogLevel.None
+        };
+    }
+
+    /// <summary>
+    /// Keeps them all at 4 characters
+    /// </summary>
+    /// <param name="level"></param>
+    /// <returns></returns>
+    public static string ToShortLevelPrefix(this LogEventLevel level)
+    {
+        return level switch
+        {
+            LogEventLevel.Verbose => "VERB",
+            LogEventLevel.Debug => "DBUG",
+            LogEventLevel.Information => "INFO",
+            LogEventLevel.Warning => "WARN",
+            LogEventLevel.Error => "EROR", 
+            LogEventLevel.Fatal => "FATL",
+            _ => level.ToString().ToUpperInvariantFast()
         };
     }
 }
