@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.Extensions.Serilog.LogEventLevels.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.Extensions.Serilog.LogEventLevels\Soenneker.Extensions.Serilog.LogEventLevels.csproj" />
     </ItemGroup>
 
     <ItemGroup>
