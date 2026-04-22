@@ -1,16 +1,15 @@
-﻿using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.Extensions.Serilog.LogEventLevels.Tests;
 
-[Collection("Collection")]
-public class LogEventLevelsExtensionTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public class LogEventLevelsExtensionTests : HostedUnitTest
 {
-    public LogEventLevelsExtensionTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public LogEventLevelsExtensionTests(Host host) : base(host)
     {
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
     }
