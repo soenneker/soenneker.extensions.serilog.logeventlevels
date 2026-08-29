@@ -4,10 +4,24 @@
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.extensions.serilog.logeventlevels/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.extensions.serilog.logeventlevels/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Extensions.Serilog.LogEventLevels
-### A collection of helpful Serilog LogEventLevel extension methods
+A collection of helpful Serilog LogEventLevel extension methods.
 
 ## Installation
 
-```
+```bash
 dotnet add package Soenneker.Extensions.Serilog.LogEventLevels
 ```
+
+## Quick start
+
+```csharp
+using Soenneker.Extensions.Serilog.LogEventLevels;
+
+// Given an existing LogEventLevel named value:
+var result = value.ToMicrosoftLogLevel();
+```
+
+## Common operations
+
+- `ToMicrosoftLogLevel()` - Converts a `LogEventLevel` value to the equivalent `LogLevel` used by Microsoft logging.
+- `ToShortLevelPrefix()` - Keeps them all at 4 characters.
