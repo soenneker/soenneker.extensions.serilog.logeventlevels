@@ -4,7 +4,7 @@
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.extensions.serilog.logeventlevels/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.extensions.serilog.logeventlevels/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Extensions.Serilog.LogEventLevels
-A collection of helpful Serilog LogEventLevel extension methods.
+Maps Serilog event levels to Microsoft logging levels and compact display prefixes.
 
 ## Installation
 
@@ -12,16 +12,34 @@ A collection of helpful Serilog LogEventLevel extension methods.
 dotnet add package Soenneker.Extensions.Serilog.LogEventLevels
 ```
 
-## Quick start
+## Convert to Microsoft logging
 
 ```csharp
 using Soenneker.Extensions.Serilog.LogEventLevels;
 
-// Given an existing LogEventLevel named value:
-var result = value.ToMicrosoftLogLevel();
+LogLevel microsoftLevel = LogEventLevel.Fatal.ToMicrosoftLogLevel();
+// LogLevel.Critical
 ```
 
-## Common operations
+The mappings are:
 
-- `ToMicrosoftLogLevel()` - Converts a `LogEventLevel` value to the equivalent `LogLevel` used by Microsoft logging.
-- `ToShortLevelPrefix()` - Keeps them all at 4 characters.
+| Serilog | Microsoft |
+|---|---|
+| `Verbose` | `Trace` |
+| `Debug` | `Debug` |
+| `Information` | `Information` |
+| `Warning` | `Warning` |
+| `Error` | `Error` |
+| `Fatal` | `Critical` |
+
+An undefined `LogEventLevel` value maps to `LogLevel.None`, which typically disables output rather than choosing a fallback severity.
+
+## Create compact prefixes
+
+```csharp
+string prefix = LogEventLevel.Warning.ToShortLevelPrefix(); // "WARN"
+```
+
+Defined levels map to `VERB`, `DBUG`, `INFO`, `WARN`, `EROR`, and `FATL`. These spellings match compact log-display conventions; `EROR` is intentionally four characters.
+
+An undefined enum value falls back to its `ToString()` representation converted to invariant uppercase. That fallback is not guaranteed to be four characters.

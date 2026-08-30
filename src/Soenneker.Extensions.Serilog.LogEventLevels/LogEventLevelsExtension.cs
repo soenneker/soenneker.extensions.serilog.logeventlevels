@@ -32,10 +32,10 @@ public static class LogEventLevelsExtension
     }
 
     /// <summary>
-    /// Keeps them all at 4 characters
+    /// Returns a four-character prefix for a defined Serilog level.
     /// </summary>
-    /// <param name="level"></param>
-    /// <returns></returns>
+    /// <param name="level">The level to format.</param>
+    /// <returns>The compact prefix, or the invariant uppercase enum representation for an undefined value.</returns>
     public static string ToShortLevelPrefix(this LogEventLevel level)
     {
         return level switch
