@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Serilog.Events;
-using Soenneker.Extensions.String;
+using System;
 
 namespace Soenneker.Extensions.Serilog.LogEventLevels;
 
@@ -46,7 +46,20 @@ public static class LogEventLevelsExtension
             LogEventLevel.Warning => "WARN",
             LogEventLevel.Error => "EROR", 
             LogEventLevel.Fatal => "FATL",
-            _ => level.ToString().ToUpperInvariantFast()
+            _ => FormatUnknownLevel(level)
         };
+    }
+
+    private static string FormatUnknownLevel(LogEventLevel level)
+    {
+        Span<char> buffer = stackalloc char[32];
+        if (!Enum.TryFormat(level, buffer, out int charsWritten))
+            return string.Empty;
+
+        Span<char> value = buffer[..charsWritten];
+        for (var i = 0; i < value.Length; i++)
+            value[i] = char.ToUpperInvariant(value[i]);
+
+        return value.ToString();
     }
 }
